@@ -12,10 +12,17 @@ typedef struct Map Map ;
 
 // List functions
 List* initList();
-void destroyList(List* list);
+void destroyList(List** list);
 void insertList(List* list, void* element);
 void* getList(List* list, int index);
 
+void* removeList(List* list, int index);
+int indexOf(List* list, void* element);
+int contains(List* list, void* element);
+void clearList(List* list);
+int isEmpty(List* list);
+
+void destroyListElement(void* element);
 
 // Vector functions
 Vector* initVector();
