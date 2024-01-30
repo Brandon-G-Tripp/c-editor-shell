@@ -33,7 +33,7 @@ void* getVector(Vector* vector, int index);
 
 // Map functions
 Map* initMap(int capacity);
-void destroyMap(Map* map);
+void destroyMap(Map** map);
 void insertMap(Map* map, void* key, void* value);
 void* getMap(Map* map, void* key);
 
