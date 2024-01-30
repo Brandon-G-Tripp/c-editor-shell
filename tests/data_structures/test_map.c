@@ -1,18 +1,16 @@
-
-#include <stdarg.h>
-#include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <stddef.h> 
 #include <setjmp.h>
 #include "/usr/local/Cellar/cmocka/1.1.7/include/cmocka.h"
 
-#include "../../src/data_structures/vector.c"
+#include "../../include/data_structures.h"
+#include "../../src/data_structures/map.c"
 
 void test_initMap() {
     Map* map = initMap(10);
     assert_non_null(map);
-    destroyMap(map);
+    destroyMap(&map);
 }; 
 
 void test_insertMap(void **state) {
@@ -33,7 +31,7 @@ void test_insertMap(void **state) {
     int* retrieved_value2 = getMap(map, &key2);
     assert_int_equal(*retrieved_value2, 20);
 
-    destroyMap(map);
+    destroyMap(&map);
 } 
 
 void test_getMap(void **state) {
@@ -54,12 +52,12 @@ void test_getMap(void **state) {
     int* retrieved_value2 = getMap(map, &key2);
     assert_int_equal(*retrieved_value2, 20);
 
-    destroyMap(map);
+    destroyMap(&map);
 } 
 
 void test_destroyMap(void **state) {
     Map* map = initMap(10);
-    destroyMap(map);
+    destroyMap(&map);
     assert_null(map);
 } 
 
