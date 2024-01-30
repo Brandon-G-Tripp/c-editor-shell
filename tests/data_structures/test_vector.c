@@ -5,7 +5,6 @@
 #include <stddef.h> 
 #include <setjmp.h>
 #include <stdlib.h>
-/* #include "../../cmake/cmocka/include/cmocka.h" */
 #include "/usr/local/Cellar/cmocka/1.1.7/include/cmocka.h"
 
 #include "../../include/data_structures.h"
