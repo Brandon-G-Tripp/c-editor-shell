@@ -15,3 +15,4 @@ add_cmocka_test_environment(simple_test)
 target_include_directories(simple_test PUBLIC "${CMOCKA_INCLUDE_DIRS}")
 
 add_subdirectory(data_structures)
+add_subdirectory(utils)
