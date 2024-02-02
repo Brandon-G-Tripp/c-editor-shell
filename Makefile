@@ -5,10 +5,16 @@ BUILD_DIR = build
 .PHONY: all build clean test
 
 # build library and executables
-build:
-	mkdir -p $(BUILD_DIR)
-	cmake -S . -B $(BUILD_DIR)
-	$(MAKE) -C $(BUILD_DIR)
+
+# Configure project
+all: configure
+
+configure:
+	cmake -S . -B $(BUILD_DIR) -DUNIT_TESTING=ON
+
+# Build library and executables
+build: configure
+	cmake --build $(BUILD_DIR) 
 
 
 # clean build files
@@ -16,10 +22,9 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 # Run all tests
-test:
-	make build
-	$(MAKE) -C $(BUILD_DIR) test
+test: build
+	ctest --test-dir $(BUILD_DIR) --output-on-failure 
 
 # Run specific test
 test_%:
-	$(MAKE) -C $(BUILD_DIR) test/$*
+	ctest --output-on-failure -R $* -C $(BUILD_DIR)
