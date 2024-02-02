@@ -29,10 +29,12 @@ endif (CMOCKA_LIBRARY)
 
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ${CMOCKA_INCLUDE_DIR})
 target_link_libraries(${CMAKE_PROJECT_NAME} ${CMOCKA_LIBRARIES})
-# add_subdirectory(src)
+add_subdirectory(src)
 
 # # Add CMocka CMake modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmocka)
+
+# enable_testing()
 
 if (UNIT_TESTING)
     find_package(CMocka REQUIRED)
