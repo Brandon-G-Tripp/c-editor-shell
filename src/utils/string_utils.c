@@ -89,6 +89,12 @@ char* join(char** arr, int count, char* delim) {
 } 
 
 int contains_sub(char *str, char *match) {
-    return strstr(str, match) != NULL;
+    /* return strstr(str, match) != NULL; */
+    char *p = strstr(str, match);
+    if (p) {
+        return 1;
+    } else {
+        return 0;
+    } 
 } 
 
