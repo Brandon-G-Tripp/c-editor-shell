@@ -2,6 +2,6 @@
 #define COMMON_UTILS_H
 
 // get length of array
-int count(char** arr);
+int count_string(char** arr);
 
 #endif

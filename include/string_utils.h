@@ -22,6 +22,6 @@ char** split(char* str, char delim);
 char* join(char** arr, int count, char* delim);
 
 // Check if string contains another string
-bool contains_sub(char* str, char* match);
+int contains_sub(char* str, char* match);
 
 #endif
