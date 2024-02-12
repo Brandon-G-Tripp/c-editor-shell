@@ -3,6 +3,7 @@ project(c-text-editor-shell)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
+set(NCurses_DIR "/usr/local/Cellar/ncurses/6.4")
 
 add_executable(c-text-editor-shell src/main.c)
 
@@ -33,6 +34,7 @@ add_subdirectory(src)
 
 # # Add CMocka CMake modules
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/cmocka)
+list(APPEND CMAKE_PREFIX_PATH "/usr/local/Cellar/ncurses/6.4/share/cmake/Modules")
 
 # enable_testing()
 
@@ -41,6 +43,7 @@ if (UNIT_TESTING)
     include(AddCMockaTest)
     add_subdirectory(tests)
 endif()
+
 
 
 # include_directories(extern/cmocka-1.1.7/include)
