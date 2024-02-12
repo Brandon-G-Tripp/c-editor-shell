@@ -52,10 +52,13 @@ void test_join(void **state) {
 
 // Test contains_sub function
 void test_contains_sub(void **state) {
+    printf("Beginning test sub");
     char *str = "hello world";
     assert_true(contains_sub(str, "world"));
     assert_false(contains_sub(str, "universe"));
-    free(str);
+    /* free(str); */
+    printf("End test sub");
+
 } 
 
 int main(void) {
