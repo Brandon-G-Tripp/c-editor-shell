@@ -21,6 +21,9 @@ Stream* create_file_output_stream(const char* path);
 // Read data from stream
 int read_stream(Stream* stream, void* buffer, int size);
 
+// Write  data to stream
+int write_stream(Stream* stream, void* buffer, int size);
+
 // Destroy stream and free memory
 void destroy_stream(Stream* stream);
 
