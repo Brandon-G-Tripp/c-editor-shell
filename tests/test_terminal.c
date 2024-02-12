@@ -19,15 +19,26 @@ void stub_shutdown() {
     shutdown_called = 1;
 } 
 
+// stub initscr
+WINDOW* stub_initscr() {
+    return NULL;
+} 
+
+// stub endwin
+int stub_endwin() {
+    return 0;
+} 
+
 // Test init and shutdown 
 void test_init_shutdown() {
-    will_return(__wrap_initscr, NULL);
-    will_return(__wrap_endwin, OK);
+    will_return(stub_initscr, NULL);
+    will_return(stub_endwin, OK);
 
-    init_terminal();
-    shutdown_terminal();
-
+    stub_init();
     assert_true(init_called);
+
+    stub_shutdown();
+
     assert_true(shutdown_called);
 }
 
