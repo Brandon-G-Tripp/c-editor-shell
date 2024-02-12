@@ -25,6 +25,9 @@ clean:
 test: build
 	ctest --test-dir $(BUILD_DIR) --output-on-failure 
 
+retest: 
+	ctest --test-dir $(BUILD_DIR) --rerun-failed --output-on-failure
+
 # Run specific test
 test_%:
-	ctest --output-on-failure -R $* -C $(BUILD_DIR)
+	ctest --test-dir $(BUILD_DIR) --output-on-failure -R $* 
