@@ -130,26 +130,48 @@ void test_get_key_press(void **state) {
     will_return(stub_getch, ERR);
     key_code = get_key_press();
     assert_int_equal(key_code, ERR);
-
 } 
 
 void test_render_ui(void **state) {
     will_return(stub_render_text, &stub_render_text);
     will_return(stub_update_cursor, &stub_update_cursor);
+    
+    // Set up test data 
+    strcpy(text_buffer, "Hello, World!");
+    cursor_x = 5;
+    cursor_y = 2;
 
+    // Call the function under test
     render_ui();
 
+    // verify that render_text function was called with correct args
+    assert_true(stub_render_text == render_text);
+    assert_string_equal(text_buffer, "Hello, World!");
+    assert_int_equal(stub_render_text_x, 0); 
+    assert_int_equal(stub_render_text_y, 0); 
+   
+    // Verify that the update_cursor function was called with correct args
+    assert_true(stub_update_cursor == update_cursor);
+    assert_int_equal(stub_update_cursor_x, cursor_x);
+    assert_int_equal(stub_update_cursor_y, cursor_y);
 
-    // Assertions
+
 } 
 
 void test_render_text(void **state) {
-    will_return(stub_mvprintw, &stub_mvprintw);
+    // Set up test data 
+    char *text = "Hello, World!";
+    int x = 5, y = 3;
 
-    render_text("Hello, World!", 10, 5);
+    // Set expectations for mocked functions
+    will_return(stub_mvprintw, 1);
 
+    render_text(text, x, y);
 
     // Add assertions
+    assert_true(stub_mvprintw == mvprintw);
+    assert_string_equal(stub_mvprintw_text, text);
+
 } 
 
 void test_update_cursor(void **state) {
