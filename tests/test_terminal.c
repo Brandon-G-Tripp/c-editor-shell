@@ -88,11 +88,35 @@ void test_handle_key_press(void **state) {
 } 
 
 void test_get_key_press(void **state) {
+    int key_code;
+
+    // Test case: Normal key press
     will_return(stub_getch, 'b');
-
-    int key_code = get_key_press();
-
+    key_code = get_key_press();
     assert_int_equal(key_code, 'b');
+
+    // Test case: special key press (e.g., arrow key)
+    will_return(stub_getch, KEY_UP);
+    key_code = get_key_press();
+    assert_int_equal(key_code, KEY_UP);
+
+
+    // test case: function key press (e.g., F1,)
+    will_return(stub_getch, KEY_F(1));
+    key_code = get_key_press();
+    assert_int_equal(key_code, KEY_F(1));
+
+    // Test case: escape key press 
+    will_return(stub_getch, 27);
+    key_code = get_key_press();
+    assert_int_equal(key_code, 27);
+
+
+    // Test case: Null character
+    will_return(stub_getch, ERR);
+    key_code = get_key_press();
+    assert_int_equal(key_code, ERR);
+
 } 
 
 void test_render_ui(void **state) {
