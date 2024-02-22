@@ -36,8 +36,22 @@ int stub_get_key_press(void) {
 
 int stub_getch(void);
 
-void stub_render_text(char *text, int x, int y);
-void stub_update_cursor(int x, int y);
+int stub_render_text_x;
+int stub_render_text_y;
+
+
+void stub_render_text(char *text, int x, int y) {
+    stub_render_text_x = x;
+    stub_render_text_y = y;
+}
+
+int stub_update_cursor_x;
+int stub_update_cursor_y;
+
+void stub_update_cursor(int x, int y) {
+    stub_update_cursor_x = x;
+    stub_update_cursor_y = y;
+}
 
 int stub_mvprintw(int y, int x, const char *str);
 
