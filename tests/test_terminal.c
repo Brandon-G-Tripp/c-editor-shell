@@ -181,7 +181,9 @@ void test_render_text(void **state) {
     // Add assertions
     assert_true(stub_mvprintw == mvprintw);
     assert_string_equal(stub_mvprintw_text, text);
-
+    assert_int_equal(stub_mvprintw_x, x);
+    assert_int_equal(stub_mvprintw_y, y);
+    assert_int_equal(stub_mvprintw_return, 1);
 } 
 
 void test_update_cursor(void **state) {
