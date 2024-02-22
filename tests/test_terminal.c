@@ -53,7 +53,17 @@ void stub_update_cursor(int x, int y) {
     stub_update_cursor_y = y;
 }
 
-int stub_mvprintw(int y, int x, const char *str);
+char *stub_mvprintw_text;
+int stub_mvprintw_x;
+int stub_mvprintw_y;
+int stub_mvprintw_return;
+
+int stub_mvprintw(int y, int x, const char *str) {
+    stub_mvprintw_x = x;
+    stub_mvprintw_y = y;
+    stub_mvprintw_text = (char *)str;
+    return (int)mock();
+}
 
 int stub_move(int y, int x);
 
