@@ -92,7 +92,12 @@ int stub_clear(void) {
     return stub_clear_return;
 } 
 
-int stub_refresh(void);
+int stub_refresh_return;
+
+int stub_refresh(void) {
+    stub_refresh_return = (int)mock();
+    return stub_refresh_return;
+}
 
 
 // Test init and shutdown 
@@ -232,11 +237,13 @@ void test_clear_screen(void **state) {
 }
 
 void test_refresh_screen(void **state) {
-    will_return(stub_refresh, &stub_refresh);
+    will_return(stub_refresh, OK);
 
     refresh_screen();
 
     // Assertions
+    assert_int_equal(stub_refresh_return, OK);
+    assert_true(stub_refresh == refresh);
 }
 
 int main() {
