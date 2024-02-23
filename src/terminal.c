@@ -9,6 +9,9 @@ void init_terminal() {
     // turn off input buffering and echo mode
     cbreak();
     noecho();
+}
 
-
+void shutdown_terminal() {
+    // Restore terminal to original state
+    endwin();
 }
