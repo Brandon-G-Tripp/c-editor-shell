@@ -1,23 +1,34 @@
-# Compiler and flags 
-CC = gcc
-CFLAGS = -Wall -std=c99
 
-# Build executable
-main: src/main.c
-	$(CC) $(CFLAGS) -o main src/main.c
+# Define build dir 
+BUILD_DIR = build
 
-# copy executable to top level 
-install: main
-	cp main .
+# Makefile targets
+.PHONY: all build clean test
+
+# build library and executables
+
+# Configure project
+all: configure
+
+configure:
+	cmake -S . -B $(BUILD_DIR) -DUNIT_TESTING=ON
+
+# Build library and executables
+build: configure
+	cmake --build $(BUILD_DIR) 
 
 
-# Clean Up 
-clean: 
-	rm -f main
+# clean build files
+clean:
+	rm -rf $(BUILD_DIR)
 
+# Run all tests
+test: build
+	ctest --test-dir $(BUILD_DIR) --output-on-failure 
 
-# Phony targets 
-.PHONY: main install clean
+retest: 
+	ctest --test-dir $(BUILD_DIR) --rerun-failed --output-on-failure
 
-# Default rule 
-all: install
+# Run specific test
+test_%:
+	ctest --test-dir $(BUILD_DIR) --output-on-failure -R $* 
