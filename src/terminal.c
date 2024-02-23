@@ -34,3 +34,14 @@ int get_key_press() {
             return key;
     }
 } 
+
+void render_text(char *text, int x, int y) {
+    // move the cursor to specified position
+    move(y, x);
+
+    // print the text at the current cursor
+    printw("%s", text);
+
+    // move cursor to the next line after printing 
+    move(y + 1, 0);
+} 
