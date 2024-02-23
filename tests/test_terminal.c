@@ -53,19 +53,37 @@ void stub_update_cursor(int x, int y) {
     stub_update_cursor_y = y;
 }
 
+va_list stub_mvprintw_args;
 char *stub_mvprintw_text;
 int stub_mvprintw_x;
 int stub_mvprintw_y;
 int stub_mvprintw_return;
 
-int stub_mvprintw(int y, int x, const char *str) {
+int stub_mvprintw(int y, int x, const char *str, ...) {
     stub_mvprintw_x = x;
     stub_mvprintw_y = y;
     stub_mvprintw_text = (char *)str;
-    return (int)mock();
+
+    // handle varargs with va_start/va_end
+    va_start(stub_mvprintw_args, str);
+
+    int result = (int)mock();
+
+    va_end(stub_mvprintw_args);
+
+
+    stub_mvprintw_return = result;
+    return result;
 }
 
-int stub_move(int y, int x);
+int stub_move_x, stub_move_y;
+int stub_move_return;
+
+int stub_move(int y, int x) {
+    stub_move_x = x;
+    stub_move_y = y;
+    return (int)mock();
+} 
 
 int stub_clear(void);
 
@@ -179,7 +197,6 @@ void test_render_text(void **state) {
     render_text(text, x, y);
 
     // Add assertions
-    assert_true(stub_mvprintw == mvprintw);
     assert_string_equal(stub_mvprintw_text, text);
     assert_int_equal(stub_mvprintw_x, x);
     assert_int_equal(stub_mvprintw_y, y);
@@ -187,11 +204,16 @@ void test_render_text(void **state) {
 } 
 
 void test_update_cursor(void **state) {
-    will_return(stub_move, &stub_move);
+    int x = 5, y = 10;
+
+    will_return(stub_move, OK);
 
     update_cursor(20, 10);
 
     // assertions
+    assert_int_equal(stub_move_x, x);
+    assert_int_equal(stub_move_y, y);
+    assert_true(stub_move == move);
 } 
 
 void test_clear_screen(void **state) {
