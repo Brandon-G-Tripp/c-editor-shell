@@ -45,3 +45,16 @@ void render_text(char *text, int x, int y) {
     // move cursor to the next line after printing 
     move(y + 1, 0);
 } 
+
+
+void update_cursor(int x, int y) {
+    move(y, x);
+} 
+
+void clear_screen() {
+    clear();
+} 
+
+void refresh_screen() {
+    refresh();
+} 
