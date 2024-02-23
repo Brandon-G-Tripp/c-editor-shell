@@ -85,7 +85,12 @@ int stub_move(int y, int x) {
     return (int)mock();
 } 
 
-int stub_clear(void);
+int stub_clear_return;
+
+int stub_clear(void) {
+    stub_clear_return = (int)mock();
+    return stub_clear_return;
+} 
 
 int stub_refresh(void);
 
@@ -217,11 +222,13 @@ void test_update_cursor(void **state) {
 } 
 
 void test_clear_screen(void **state) {
-    will_return(stub_clear, &stub_clear);
+    will_return(stub_clear, OK);
 
     clear_screen();
 
     // Assertions
+    assert_int_equal(stub_clear_return, OK);
+    assert_true(stub_clear == clear);
 }
 
 void test_refresh_screen(void **state) {
